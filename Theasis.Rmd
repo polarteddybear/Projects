@@ -1,0 +1,74 @@
+---
+output:
+  word_document: default
+  html_document: default
+---
+library('MASS')
+library('haven')
+library('ggplot2')
+library("sjPlot")
+library(gridExtra)
+danielhalabi <- read_sav("C:/Users/pauli/Downloads/danielhalabi.sav")
+# turning ses to binary variable sesr 1= low ses 2=high ses #
+
+danielhalabi$ses[danielhalabi$ses < 4] <- 1
+ danielhalabi$ses[danielhalabi$ses > 3] <- 2
+danielhalabi$ses[danielhalabi$ses > 6] <- NA
+
+
+# turning q50 (Subjective social status) into three levels variable 1=low SSS 2=mid SSS 3= high SSS#
+danielhalabi$SSS <- danielhalabi$q50
+ danielhalabi$SSS[danielhalabi$SSS < 3] <- 1
+ danielhalabi$SSS[danielhalabi$SSS == 3] <- 2
+ danielhalabi$SSS[danielhalabi$SSS> 3] <- 3
+
+# turning all the factorial variables into factors (SSS, sesr, sex, discriminated, jworno, q1)#
+ danielhalabi$SSS = factor(danielhalabi$SSS)
+ danielhalabi$ses = factor(danielhalabi$ses)
+ danielhalabi$discriminated = factor(danielhalabi$discriminated)
+ danielhalabi$sex = factor(danielhalabi$sex)
+ danielhalabi$q1 = factor(danielhalabi$q1)
+danielhalabi$jworno = factor(danielhalabi$jworno)
+# New facet label names for dose variable
+jworno.labs <- c("Jews", "Arabs")
+names(jworno.labs) <- c("0", "1")
+
+# New facet label names for supp variable
+sex.labs <- c("Males", "Females")
+names(sex.labs) <- c("1", "2")
+
+ggplot(danielhalabi, aes(x = q1, y = age, fill = q1,)) + geom_boxplot() + 
+facet_grid(jworno ~ sex, labeller = labeller(jworno = jworno.labs, sex = sex.labs))  + geom_jitter() +
+labs(title="Demographic Variables Boxplot",x="SHS", y = "Age", fill = "SHS")
+# create oridinal logit regression model named "model1" using "MASS"#
+model1 <- polr(q1 ~ age + sex + jworno + discriminated + ses + SSS, data = danielhalabi, Hess = TRUE) 
+# calculating p values by comparing t values against normal distribution #
+ summary_table <- coef(summary(model1))
+ pval <- pnorm(abs(summary_table[, "t value"]),lower.tail = FALSE)* 2
+ summary_table <- cbind(summary_table, "p value" = round(pval,3))
+ summary_table
+# Create nice table using Sjplot package# 
+tab_model(model1)
+
+# creating ill variable from 1 answer to at least one disease #
+danielhalabi$ill <- ifelse(danielhalabi$q52_1 == 1 | danielhalabi$q52_12 == 1 | danielhalabi$q52_13 ==1 | danielhalabi$q52_14 == 1 | danielhalabi$q52_2 ==1 | danielhalabi$q52_3 == 1 | danielhalabi$q52_4 ==1 |danielhalabi$q52_5 == 1 | danielhalabi$q52_6 == 1 | danielhalabi$q52_7 == 1 | danielhalabi$q52_8 == 1 | danielhalabi$q52_9 == 1, 1 ,0)
+
+#creating logistic regression model called "logit1"#
+logit1 <- glm(ill ~ age + sex + jworno + discriminated + ses + SSS, data = danielhalabi, family = "binomial")
+
+#plot using sjplot
+plot_model(logit1, type = "pred", terms= c("age [all]", "SSS", "sex"))
+
+#percanges plot#
+SES <- ggplot(danielhalabi, aes(ses)) +
+                             geom_bar(aes(y = (..count..)/sum(..count..))) + 
+                            scale_y_continuous(labels=scales::percent) +
+                            ylab("relative frequencies") +
+                            xlab("SES")
+#after creating all variables we use gridExtra in order to arrange#
+grid.arrange(SES, SSS, q1, sex, jworno, discriminated)
+SES
+
+
+
+
