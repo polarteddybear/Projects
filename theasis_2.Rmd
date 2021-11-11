@@ -1,6 +1,6 @@
 ---
 title: "Theasis_2"
-output: html_document
+output: rmarkdown::github_document
 ---
 library('MASS')
 library('haven')
