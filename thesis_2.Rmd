@@ -1,5 +1,5 @@
 ---
-title: "Theasis_2"
+title: "Thesis_2"
 output: rmarkdown::github_document
 
 # This is The code for my Theasis which deals with health behaviours of Jews and Arabs in Israel (Reach me for the work itself).
