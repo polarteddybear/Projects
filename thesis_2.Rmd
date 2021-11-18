@@ -9,7 +9,7 @@ library('haven')
 library('ggplot2')
 library("sjPlot")
 library(gridExtra)
-danielhalabi <- read_sav("C:/Users/pauli/Downloads/danielhalabi.sav")
+danielhalabi <- read_sav("-----------.sav")
 # turning ses to binary variable sesr 1= low ses 2=high ses #
 
 danielhalabi$ses[danielhalabi$ses < 4] <- 1
@@ -37,7 +37,7 @@ names(jworno.labs) <- c("0", "1")
 # New facet label names for supp variable
 sex.labs <- c("Males", "Females")
 names(sex.labs) <- c("1", "2")
-
+# Plot a demographic values boz plot with the facet names
 ggplot(danielhalabi, aes(x = q1, y = age, fill = q1,)) + geom_boxplot() + 
 facet_grid(jworno ~ sex, labeller = labeller(jworno = jworno.labs, sex = sex.labs))  + geom_jitter() +
 labs(title="Demographic Variables Boxplot",x="SHS", y = "Age", fill = "SHS")
@@ -54,18 +54,18 @@ tab_model(model1)
 # creating ill variable from 1 answer to at least one disease #
 danielhalabi$ill <- ifelse(danielhalabi$q52_1 == 1 | danielhalabi$q52_12 == 1 | danielhalabi$q52_13 ==1 | danielhalabi$q52_14 == 1 | danielhalabi$q52_2 ==1 | danielhalabi$q52_3 == 1 | danielhalabi$q52_4 ==1 |danielhalabi$q52_5 == 1 | danielhalabi$q52_6 == 1 | danielhalabi$q52_7 == 1 | danielhalabi$q52_8 == 1 | danielhalabi$q52_9 == 1, 1 ,0)
 
-#creating logistic regression model called "logit1"#
+# creating logistic regression model called "logit1"#
 logit1 <- glm(ill ~ age + sex + jworno + discriminated + ses + SSS, data = danielhalabi, family = "binomial")
 
-#plot using sjplot
+# plot using sjplot
 plot_model(logit1, type = "pred", terms= c("age [all]", "SSS", "sex"))
 
-#percanges plot#
+# percanges plot#
 SES <- ggplot(danielhalabi, aes(ses)) +
                              geom_bar(aes(y = (..count..)/sum(..count..))) + 
                             scale_y_continuous(labels=scales::percent) +
                             ylab("relative frequencies") +
                             xlab("SES")
-#after creating all variables we use gridExtra in order to arrange#
+# after creating all variables we use gridExtra in order to arrange#
 grid.arrange(SES, SSS, q1, sex, jworno, discriminated)
 SES
