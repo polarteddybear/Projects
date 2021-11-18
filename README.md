@@ -1,4 +1,5 @@
 # Projects
+<img src="https://img.icons8.com/wired/64/000000/line-chart.png"/>
 This respiratory contains diffrent projects I worked on; either through studies, work or independently.
 The projects written in an easy to read markdown files. Most of the work includes additional information and analysis (including the logic and steps taken in the analysis, information about the datasets and conculsions with recommendations) and Plots.
 
@@ -13,7 +14,7 @@ This is the code for my Thesis work dealing with Jews and Arabs health behaviour
 ## dead_sea_2 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original-wordmark.svg" width="30px" height="30px" />
 In this work I will use freely available data to create a nice plot of the dead sea level [[Go to Code]](https://github.com/polarteddybear/Projects/blob/main/dead_sea_2.ipynb)
 
-[link to r/dataisbeutiful](https://www.reddit.com/r/dataisbeautiful/comments/qtmshs/dead_sea_surface_levels_19762021_oc/) with this project
+<img src="https://img.icons8.com/ios/64/000000/reddit.png" width="20px" height="20px"/>[link to r/dataisbeutiful](https://www.reddit.com/r/dataisbeautiful/comments/qtmshs/dead_sea_surface_levels_19762021_oc/) post with this project<img src="https://img.icons8.com/ios/64/000000/reddit.png" width="20px" height="20px"/>
 
 ## SQL Training <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlalchemy/sqlalchemy-original.svg" width="50px" height="50px">
 ### Several SQL mini projects for training my SQL skills in Yandex course
