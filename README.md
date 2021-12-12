@@ -9,7 +9,7 @@ In This work I will try to see if there is a relationship between bitcoin price 
 
 ## thesis_2 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/rstudio/rstudio-original.svg" width="30px" height="30px" />
 This is the code for my Thesis work dealing with Jews and Arabs health behaviours in Israel. For the complete context and work(including the plots) please send me a message.
-[[Go to code]](https://github.com/polarteddybear/Projects/blob/main/theasis_2.Rmd)
+[[Go to code]](https://github.com/polarteddybear/Projects/blob/main/thesis_2.Rmd)
 
 ## dead_sea_2 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original-wordmark.svg" width="30px" height="30px" />
 In this work I will use freely available data to create a nice plot of the dead sea level [[Go to Code]](https://github.com/polarteddybear/Projects/blob/main/dead_sea_2.ipynb)
